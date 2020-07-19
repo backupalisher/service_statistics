@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}{% endblock %}
+{% block content %}
+    <h1>Hi, world!</h1>
+    {% for device in device_history %}
+        <p>{{ device.articles }}
+        {{ device.companies }}
+        {{ device.clients }}
+        {{ device.type_works }}
+        {{ device.products }}
+        {{ device.date }}
+        {{ device.work_time }}
+        {{ device.status }}
+        {{ device.description}}
+        </p>
+{#        {% for d in device %}#}
+{#            {{ d }}#}
+{#        {% endfor %}#}
+    {% endfor %}
+{% endblock %}
+{% block footer %}{% endblock %}
