@@ -28,6 +28,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('device_history', include("repair.urls")),
     path('device', include("repair.urls")),
+    path("user/", UserCreate.as_view(), name="user_create"),
+    path("login/", LoginView.as_view(), name="login"),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

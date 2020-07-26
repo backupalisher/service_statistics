@@ -1,13 +1,26 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
+
 from repair.models import *
 
 
 # Serializers define the API representation.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'is_staff', 'groups']
+        fields = ['url', 'username', 'email',  'password', 'is_staff', 'groups']
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User(
+            email=validated_data['email'],
+            username=validated_data['username']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        Token.objects.create(user=user)
+        return user
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
